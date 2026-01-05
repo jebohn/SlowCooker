@@ -13,7 +13,7 @@ class HeatController:
     self.last_err = 0.0
     self.integral_total = 0.0
     self.curr_temp = 0.0
-    self.power_state = False
+    self.power_state = False          # False = off, true = on
 
 
   # Getters and Setters

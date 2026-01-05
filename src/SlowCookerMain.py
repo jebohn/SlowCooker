@@ -3,16 +3,20 @@ sys.path.append('./hardware')
 
 import time
 import HeatController
+import Logger
+import WebInterfaceAPI
+import RecipePresets
 import SSR
+import MAX6675Amplifier
 
 class SlowCookerMain:
   def __init__(self, target_temp: int, cook_duration: int):
-    # self.thermometer = 
+    self.thermometer = MAX6675Amplifier()
     self.heater = SSR()
     self.controller = HeatController(self.heater, target_temp)
-    # self.logger = Logger()
-    # self.web_interface = WebInterfaceAPI()
-    # self.presets = RecipePresets()
+    self.logger = Logger()
+    self.web_interface = WebInterfaceAPI()
+    self.presets = RecipePresets()
     self.start_time = time.perf_counter()
     self.cook_duration = cook_duration
 

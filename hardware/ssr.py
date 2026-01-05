@@ -2,7 +2,7 @@ import sys
 sys.path.append('./tests')
 
 try:
-  import RPi.GPIO as GPIO   # Will only work when running on RPi
+  import RPi.GPIO as GPIO     # Will only work when running on RPi
 except ImportError:
   import mock_pi as GPIO
 
