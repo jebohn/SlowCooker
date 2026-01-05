@@ -8,9 +8,10 @@ class HeatController:
   WINDOW = 10.0
 
   def __init__(self, heater, target_temp: float):
-    self.heater = heater              # SSR instance
+    self.heater = heater              # SSR instance, supplied by SlowCookerMain.py
     self.target_temp = target_temp
     self.last_err = 0.0
+    self.last_time = None
     self.integral_total = 0.0
     self.curr_temp = 0.0
     self.power_state = False          # False = off, true = on
@@ -39,7 +40,7 @@ class HeatController:
     self.heater.off()
     self.power_state = False
 
-  def compute_pid(self, dt: float) -> float:
+  def compute_pid(self) -> float:
     """
     Computes output percentage based on current temperature to
     reach target temperature.
@@ -55,6 +56,13 @@ class HeatController:
     KP = 0.5
     KI = 0.05
     KD = 0.01
+
+    now = time.perf_counter()
+    if self.prev_time is None:
+      dt = 1  # default for first iteration
+    else:
+      dt = now - self.prev_time
+    self.prev_time = now
 
     err = self.target_temp - self.curr_temp
     proportional = KP * err
@@ -72,12 +80,15 @@ class HeatController:
   
   
   # Controller
-  def cycle(self, output: float) -> None:
+  def cycle(self) -> None:
     """
     Cycles SSR on and off, per PID output, for WINDOW time.
     
     :param output: Output percentage from compute_pid().
     """
+
+    output = self.compute_pid(self)
+
     on_time = output * self.WINDOW
     off_time = self.WINDOW - on_time
 
