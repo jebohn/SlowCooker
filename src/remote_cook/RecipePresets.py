@@ -42,6 +42,7 @@ class RecipePresets:
         for row in intervals:
             cur.execute(sql_insert_query, (name, i, row[0], row[1]))
             i = i + 1
+        con.commit
         con.close()
 
 
