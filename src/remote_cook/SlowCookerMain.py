@@ -5,7 +5,7 @@ import time
 import HeatController
 import TemperatureSensor
 import Logger
-import WebInterfaceAPI
+import remote_cook.website.WebInterfaceAPI as WebInterfaceAPI
 import RecipePresets
 import SSR
 import MAX6675Amplifier
