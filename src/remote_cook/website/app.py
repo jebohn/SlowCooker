@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect
 
-# class WebInterfaceAPI:
+#  class WebInterfaceAPI:
 app = Flask(__name__)
 
 @app.route('/')       
