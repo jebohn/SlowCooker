@@ -1,0 +1,1 @@
+# This file defines remote_cook as a package

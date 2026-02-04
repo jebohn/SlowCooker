@@ -1,0 +1,1 @@
+# This file defines hardware as a (sub)package
