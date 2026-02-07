@@ -5,7 +5,7 @@ import time
 import HeatController
 import TemperatureSensor
 import Logger
-import remote_cook.website.WebInterfaceAPI as WebInterfaceAPI
+import remote_cook.website.app as app
 import RecipePresets
 import SSR
 import MAX6675Amplifier
@@ -21,7 +21,7 @@ class SlowCookerMain:
     self.controller = HeatController(self.heater, self.target_temp)
     self.sensor = TemperatureSensor()
     self.logger = Logger()
-    self.web_interface = WebInterfaceAPI()
+    self.web_interface = app()
     self.presets = RecipePresets()
 
 
