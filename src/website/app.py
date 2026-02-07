@@ -4,7 +4,7 @@ from hardware.ssr import SSR
 app = Flask(__name__)
 hardware = SSR()
 
-@app.route("/home")
+@app.route("/")
 def home():
     return """
     <h1>Remote Cook Home</h1>
