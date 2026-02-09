@@ -2,10 +2,17 @@
 <html>
 <body>
 <h1>Cooking Started!</h1>
-    <p>Total time: {{time}} minutes</p>
+    <!-- <p>Total time: {{time}} minutes</p>
     <p>Temperature: {{temp}} C</p>
     <p>Segments: {{segments}}, each segment: {{segment_duration}} minutes</p>
     <p>(Send commands to SSR hardware)</p>
+    <a href="/">Back</a> -->
+
+    <div>Total time: <span id="time">{{time}}</span></div>
+    <div>Current Temperature: <span id="temp">{{temp}}</span></div>
+    <div>Segments: <span id="segment">{{segments}}</span>, each segment: <span id="segment">{{segment_duration}}</span> minutes</div>
     <a href="/">Back</a>
+    
+
 </body>
 </html>
