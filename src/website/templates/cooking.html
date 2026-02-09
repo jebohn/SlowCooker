@@ -2,10 +2,10 @@
 <html>
 <body>
 <h1>Cooking Started!</h1>
-    <p>Total time: {{cook_duration}} minutes</p>
-    <p>Temperature: {{target_temp}} C</p>
-    <p>Intervals: {{intervals}}, each interval: {{interval_duration}} minutes</p>
-    <a href="/"></a>
+    <div>Total time: <span id="time">{{cook_duration}}</span> minutes</div>
+    <div>Temperature: <span id="target_temp">{{target_temp}}</span> C</div>
+    <div>Intervals: <span id="interval">{{intervals}}</span>, each interval: <span id="interval_duration">{{interval_duration}}</span> minutes</div>
+    <a href="/">Back</a>
 </body>
 <script type="module" src="{{url_for('static', filename='cooking.js')}}"></script>
 </html>
