@@ -5,10 +5,10 @@ import time
 import HeatController
 import TemperatureSensor
 import Logger
-import remote_cook.website.app as app
+from website.app import app
 import RecipePresets
-import SSR
-import MAX6675Amplifier
+from hardware.ssr import SSR
+from hardware.MAX6675Amplifier import MAX6675Amplifier
 
 
 class SlowCookerMain:
@@ -55,10 +55,10 @@ class SlowCookerMain:
 
 # I'm not sure there will be a need for a main() once the API is completed
 # The API would basically handle the usual responsibilites of a main(), no?
-if __name__ == "__main__":
-  # Hard code for testing
-  target_temp = float(input("Enter target temperature (Celsius): "))
-  cook_duration = int(input("Enter cook duration (minutes): ")) * 60
+# if __name__ == "__main__":
+#   # Hard code for testing
+#   target_temp = float(input("Enter target temperature (Celsius): "))
+#   cook_duration = int(input("Enter cook duration (minutes): ")) * 60
 
-  cooker = SlowCookerMain(target_temp, cook_duration)
-  cooker.run()
+#   cooker = SlowCookerMain(target_temp, cook_duration)
+#   cooker.run()

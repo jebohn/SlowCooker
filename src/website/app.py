@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify, render_template, url_for
-# from hardware.ssr import SSR
+from flask import Flask, Response, request, render_template
+import json
+from src.SlowCookerMain import SlowCookerMain
 
 app = Flask(__name__)
-# hardware = SSR()
 
 @app.route("/")
 def home():
@@ -10,14 +10,18 @@ def home():
     
 @app.route("/start_cook", methods=["POST"])
 def start_cook():
-    total_time = int(request.form["total_time"])
-    temperature = int(request.form["temperature"])
-    segments = int(request.form["segments"])
+    cook_duration = int(request.form["cook_duration"])
+    target_temp = int(request.form["target_temp"])
+    intervals = int(request.form["intervals"])
 
-    segment_duration = total_time / segments
-    segment_duration_str = f"{segment_duration:.2f}"
+    interval_duration = cook_duration / intervals
+    interval_duration_str = f"{interval_duration:.2f}"
 
-    return render_template('cooking.html', time = total_time, temp = temperature, segments = segments, segment_duration = segment_duration_str)
+    slow_cooker = SlowCookerMain(target_temp, cook_duration)
+    slow_cooker.run()
+
+    return render_template('cooking.html', time = cook_duration, temp = target_temp, 
+                           segments = intervals, segment_duration = interval_duration_str)
 
 @app.route("/log")
 def log():
