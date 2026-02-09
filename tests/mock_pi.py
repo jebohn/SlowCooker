@@ -1,3 +1,5 @@
+import time
+
 BCM = 'BCM'
 OUT = 'OUT'
 HIGH = 1

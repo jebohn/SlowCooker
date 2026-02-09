@@ -2,17 +2,10 @@
 <html>
 <body>
 <h1>Cooking Started!</h1>
-    <!-- <p>Total time: {{time}} minutes</p>
-    <p>Temperature: {{temp}} C</p>
-    <p>Segments: {{segments}}, each segment: {{segment_duration}} minutes</p>
-    <p>(Send commands to SSR hardware)</p>
-    <a href="/">Back</a> -->
-
-    <div>Total time: <span id="time">{{time}}</span></div>
-    <div>Current Temperature: <span id="temp">{{temp}}</span></div>
-    <div>Segments: <span id="segment">{{segments}}</span>, each segment: <span id="segment">{{segment_duration}}</span> minutes</div>
+    <div>Total time: <span id="time">{{cook_duration}}</span> minutes</div>
+    <div>Temperature: <span id="target_temp">{{target_temp}}</span> C</div>
+    <div>Intervals: <span id="interval">{{intervals}}</span>, each interval: <span id="interval_duration">{{interval_duration}}</span> minutes</div>
     <a href="/">Back</a>
-    
-
 </body>
+<script type="module" src="{{url_for('static', filename='cooking.js')}}"></script>
 </html>

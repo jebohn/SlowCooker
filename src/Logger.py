@@ -1,6 +1,9 @@
 import sqlite3
 import time
+from queue import Queue
 from typing import List, Tuple
+
+log_queue = Queue()
 
 class Logger:
   def __init__(self, db_path="cooker_log.db"):
@@ -34,6 +37,7 @@ class Logger:
   def log(self, curr_temp: float, target_temp: float) -> None:
     """
     Record current and target temperatures with a timestamp in 'curr_session' db
+    Push entry to queue for SSE updates
     
     :param curr_temp: Current temperature in Celsius; provided by SlowCookerMain call
     :param target_temp: Target temperature in Celsius; provided by SlowCookerMain call
@@ -45,3 +49,10 @@ class Logger:
       (timestamp, curr_temp, target_temp)
     )
     self.conn.commit()
+
+    log_queue.put({
+      "timestamp": timestamp,
+      "curr_temp": curr_temp,
+      "target_temp": target_temp
+    })
+

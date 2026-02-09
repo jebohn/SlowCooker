@@ -68,7 +68,7 @@ class HeatController:
     proportional = KP * err
 
     # Might need to max/min bound this value, will see with trials
-    #   e.g., self.integralTotal = max(min(self.integralTotal, 10.0), -10.0)
+    #   e.g., self.integral_total = max(min(self.integralTotal, 10.0), -10.0)
     self.integral_total += KI * err * dt
 
     derivative = (KD * (err - self.last_err)) / dt
