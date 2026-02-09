@@ -2,10 +2,10 @@
 <html>
 <body>
 <h1>Cooking Started!</h1>
-    <p>Total time: {{time}} minutes</p>
-    <p>Temperature: {{temp}} C</p>
-    <p>Segments: {{segments}}, each segment: {{segment_duration}} minutes</p>
-    <p>(Send commands to SSR hardware)</p>
-    <a href="/">Back</a>
+    <p>Total time: {{cook_duration}} minutes</p>
+    <p>Temperature: {{target_temp}} C</p>
+    <p>Intervals: {{intervals}}, each interval: {{interval_duration}} minutes</p>
+    <a href="/"></a>
 </body>
+<script type="module" src="{{url_for('static', filename='cooking.js')}}"></script>
 </html>
