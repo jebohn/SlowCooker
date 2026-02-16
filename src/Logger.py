@@ -3,7 +3,7 @@ import time
 from queue import Queue
 from typing import List, Tuple
 
-log_queue = Queue()
+
 
 class Logger:
   def __init__(self, db_path="cooker_log.db"):
@@ -19,6 +19,7 @@ class Logger:
                         )
                         """)
     self.conn.commit()
+    self.log_queue = Queue()
 
   # Helper methods
   def start_session(self) -> None:
