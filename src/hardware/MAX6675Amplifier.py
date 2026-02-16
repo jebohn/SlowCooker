@@ -9,7 +9,7 @@ class MAX6675Amplifier:
         self.spi = spidev.SpiDev()
         self.spi.open(bus, device)
     
-    def open(self):
+    def open(self, bus, device):
         self.spi.open(bus, device)
         self.spi.max_speed_hz = 0
         self.spi.mode = 0b00

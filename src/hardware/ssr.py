@@ -1,5 +1,4 @@
 import sys
-sys.path.append('./tests')
 
 try:
   import RPi.GPIO as GPIO     # Will only work when running on RPi

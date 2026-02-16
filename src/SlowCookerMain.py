@@ -1,6 +1,3 @@
-import sys
-sys.path.append('./hardware')
-
 import time
 import HeatController
 import TemperatureSensor
@@ -9,6 +6,9 @@ from website.app import app
 import RecipePresets
 from hardware.ssr import SSR
 from hardware.MAX6675Amplifier import MAX6675Amplifier
+from tests import mock_pi
+
+DEBUG = True
 
 
 class SlowCookerMain:
@@ -40,8 +40,13 @@ class SlowCookerMain:
     self.start_session()
     end_time = self.start_time + self.cook_duration
 
+    if DEBUG is True:
+      test = mock_pi.SpiDev()
+    else:
+      test = None
+
     while time.perf_counter() < end_time:
-      self.controller.cycle()
+      self.controller.cycle(test)
       curr_temp = self.sensor.read_temp()
       self.controller.set_curr_temp(curr_temp)
       self.logger.log(curr_temp, self.target_temp)

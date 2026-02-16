@@ -3,6 +3,8 @@ import time
 #  !!  VARIABLES INSIDE compute_pid() WILL NEED  !!
 #  !!    ADJUSTMENT BASED ON CROCK-POT TRIALS    !!
 
+
+
 class HeatController:
   # WINDOW constant might need adjustment
   WINDOW = 10.0
@@ -80,7 +82,7 @@ class HeatController:
   
   
   # Controller
-  def cycle(self) -> None:
+  def cycle(self, test) -> None:
     """
     Cycles SSR on and off, per PID output, for WINDOW time.
     
@@ -91,6 +93,9 @@ class HeatController:
 
     on_time = output * self.WINDOW
     off_time = self.WINDOW - on_time
+
+    if test is not None:
+      test.set_temp(on_time)
 
     if on_time > 0:
       self.power_on()
