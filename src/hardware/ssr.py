@@ -1,5 +1,3 @@
-import sys
-
 try:
   import RPi.GPIO as GPIO     # Will only work when running on RPi
 except ImportError:
