@@ -16,7 +16,7 @@ class MAX6675Amplifier:
 
     # WIP
     def get_temp(self):
-        return 0
+        return self.spi.xfer2()
 
     def close(self):
         self.spi.close()
