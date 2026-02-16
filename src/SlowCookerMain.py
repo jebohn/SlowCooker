@@ -12,7 +12,7 @@ DEBUG = True
 
 
 class SlowCookerMain:
-  def __init__(self, target_temp: int, cook_duration: int):
+  def __init__(self, target_temp: int, cook_duration: int, logger: Logger):
     self.target_temp = target_temp
     self.cook_duration = cook_duration
     self.start_time = None
@@ -20,7 +20,7 @@ class SlowCookerMain:
     self.heater = SSR()
     self.controller = HeatController(self.heater, self.target_temp)
     self.sensor = TemperatureSensor()
-    self.logger = Logger()
+    self.logger = logger
     self.web_interface = app()
     self.presets = RecipePresets()
 

@@ -4,17 +4,17 @@ from queue import Queue
 import json
 import time
 from src.SlowCookerMain import SlowCookerMain
+from src.Logger import Logger
 
 
 app = Flask(__name__)
 
-
+logger = Logger()
 status = {}
-log_queue = Queue()
 
 def log_listener():
 	while True:
-		log_entry = log_queue.get()
+		log_entry = logger.log_queue.pop()
 		status.update(log_entry)
 
 Thread(target=log_listener, daemon=True).start()
@@ -32,7 +32,7 @@ def home():
         session["intervals"] = intervals
         
 
-        slow_cooker = SlowCookerMain(target_temp, cook_duration)
+        slow_cooker = SlowCookerMain(target_temp, cook_duration, logger)
         slow_cooker.run()
 
         return redirect(url_for("cook_session"))
