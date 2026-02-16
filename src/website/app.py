@@ -1,8 +1,8 @@
 from flask import Flask, Response, request, redirect, url_for, session, render_template
 from threading import Thread
-from queue import Queue
 import json
 import time
+from queue import Queue
 from src.SlowCookerMain import SlowCookerMain
 from src.Logger import Logger
 
@@ -14,7 +14,7 @@ status = {}
 
 def log_listener():
 	while True:
-		log_entry = logger.log_queue.pop()
+		log_entry = logger.log_queue.get()
 		status.update(log_entry)
 
 Thread(target=log_listener, daemon=True).start()
@@ -53,14 +53,14 @@ def start_cook():
     
     
 @app.route("/log/stream")
-def log_stream():
+def log_stream(cook_duration):
 	def event_stream():
-		last_timestamp = status.get("timestamp")
+		last_timestamp = status.get("timestamp", cook_duration)
 		yield f"data: {json.dumps(status)}\n\n"
 		while True:
 			if status.get("timestamp", 0) > last_timestamp:
 				last_timestamp = status.get("timestamp")
-			yield f"data: {json.dumps(status)}\n\n"
+				yield f"data: {json.dumps(status)}\n\n"
 			time.sleep(0.5)
 	return Response(event_stream(), mimetype="text/event_stream")
 
