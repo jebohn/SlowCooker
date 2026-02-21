@@ -1,5 +1,6 @@
 .venv/
 venv/
 .DS_Store
+# Ignore all Python cache dirs everywhere
 __pycache__/
-*.pcy
+cooker_log.db
