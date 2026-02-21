@@ -7,10 +7,10 @@ from typing import List, Tuple
 
 class Logger:
   def __init__(self, db_path="cooker_log.db"):
-    self.conn = sqlite3.connect(db_path)
-    self.cursor = self.conn.cursor()
-
-    self.cursor.execute("""
+    self.path = db_path
+    conn = sqlite3.connect(self.path)
+    cursor = conn.cursor()
+    cursor.execute("""
                         CREATE TABLE IF NOT EXISTS curr_session (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         timestamp REAL NOT NULL,
@@ -18,20 +18,28 @@ class Logger:
                         target_temp REAL NOT NULL
                         )
                         """)
-    self.conn.commit()
+    conn.commit()
+    conn.close()
     self.log_queue = Queue()
 
   # Helper methods
   def start_session(self) -> None:
-    self.cursor.execute("DELETE FROM curr_session")
-    self.conn.commit()
+    conn = sqlite3.connect(self.path)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM curr_session")
+    conn.commit()
+    conn.close()
 
   def get_entries(self) -> List[Tuple[float, float, float]]:
-    self.cursor.execute("SELECT * FROM curr_session ORDER BY timestamp ASC")
-    return self.cursor.fetchall()
+    conn = sqlite3.connect(self.path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM curr_session ORDER BY timestamp ASC")
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
   
-  def close(self) -> None:
-    self.conn.close()
+  #def close(self) -> None:
+  #  self.conn.close()
 
 
   # Controller
@@ -44,14 +52,16 @@ class Logger:
     :param target_temp: Target temperature in Celsius; provided by SlowCookerMain call
     """
     timestamp = time.time()
-    self.cursor.execute(
+    conn = sqlite3.connect(self.path)
+    cursor = conn.cursor()
+    cursor.execute(
       """INSERT INTO curr_session (timestamp, curr_temp, target_temp)
       VALUES (?, ?, ?)""",
       (timestamp, curr_temp, target_temp)
     )
-    self.conn.commit()
-
-    log_queue.put({
+    conn.commit()
+    conn.close()
+    self.log_queue.put({
       "timestamp": timestamp,
       "curr_temp": curr_temp,
       "target_temp": target_temp

@@ -33,7 +33,7 @@ def home():
         
 
         slow_cooker = SlowCookerMain(target_temp, cook_duration, logger)
-        slow_cooker.run()
+        Thread(target=slow_cooker.run, daemon=True).start()
 
         return redirect(url_for("log"))
     return render_template("home.html")
@@ -52,7 +52,7 @@ def log():
                            intervals = intervals) # interval_duration = interval_duration_str)
     
     
-@app.route("/log/stream")
+@app.route("/log/stream/<int:cook_duration>")
 def log_stream(cook_duration):
 	def event_stream():
 		last_timestamp = status.get("timestamp", cook_duration)

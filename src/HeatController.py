@@ -13,7 +13,7 @@ class HeatController:
     self.heater = heater              # SSR instance, supplied by SlowCookerMain.py
     self.target_temp = target_temp
     self.last_err = 0.0
-    self.last_time = None
+    self.prev_time = None
     self.integral_total = 0.0
     self.curr_temp = 0.0
     self.power_state = False          # False = off, true = on
@@ -89,7 +89,7 @@ class HeatController:
     :param output: Output percentage from compute_pid().
     """
 
-    output = self.compute_pid(self)
+    output = self.compute_pid()
 
     on_time = output * self.WINDOW
     off_time = self.WINDOW - on_time
