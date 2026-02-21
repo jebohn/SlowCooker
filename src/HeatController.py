@@ -53,7 +53,7 @@ class HeatController:
     """
     # adjust kp, ki, kd like so (per real crockpot trials):
     #   major overshoot -> reduce kp
-    #   never reaches targetTemp -> increase ki slowly
+    #   never reaches target_temp -> increase ki slowly
     #   oscillates slowly -> reduce kp or ki
     KP = 0.5
     KI = 0.05

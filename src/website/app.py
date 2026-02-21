@@ -44,11 +44,11 @@ def start_cook():
     target_temp = session.get("target_temp")
     intervals = session.get("intervals")
 
-    interval_duration = cook_duration / intervals
-    interval_duration_str = f"{interval_duration:.2f}"
+    # interval_duration = cook_duration / intervals
+    # interval_duration_str = f"{interval_duration:.2f}"
 
     return render_template("cooking.html", cook_duration = cook_duration, target_temp = target_temp, 
-                           intervals = intervals, interval_duration = interval_duration_str)
+                           intervals = intervals) # interval_duration = interval_duration_str)
     
     
 @app.route("/log/stream")
@@ -66,4 +66,4 @@ def log_stream(cook_duration):
 
 # Without this if statement, the program will automatically run the web server if this class is imported
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
