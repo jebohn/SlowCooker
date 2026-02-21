@@ -44,11 +44,11 @@ def start_cook():
     target_temp = session.get("target_temp")
     intervals = session.get("intervals")
 
-    interval_duration = cook_duration / intervals
-    interval_duration_str = f"{interval_duration:.2f}"
+    # interval_duration = cook_duration / intervals
+    # interval_duration_str = f"{interval_duration:.2f}"
 
-    return render_template("cooking.html", cook_duration = cook_duration, target_temp = target_temp, 
-                           intervals = intervals, interval_duration = interval_duration_str)
+    return render_template("cooking.html", cook_duration = cook_duration, target_temp = target_temp)
+						#    intervals = intervals, interval_duration = interval_duration_str)
     
     
 @app.route("/log/stream")
