@@ -19,10 +19,10 @@ class SlowCookerMain:
     self.thermometer = MAX6675Amplifier()
     self.heater = SSR()
     self.controller = HeatController(self.heater, self.target_temp)
-    self.sensor = TemperatureSensor()
+    self.sensor = TemperatureSensor(self.thermometer)
     self.logger = logger
-    self.web_interface = app()
-    self.presets = RecipePresets()
+    self.web_interface = app
+    #self.presets = RecipePresets()
 
 
   # Helper method
