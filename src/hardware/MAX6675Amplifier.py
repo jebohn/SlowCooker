@@ -16,7 +16,10 @@ class MAX6675Amplifier:
 
     # WIP
     def get_temp(self):
-        return self.spi.xfer2()
+        data = self.spi.xfer2() # spi device returns two bytes
+        raw = (data[0] << 8) | data[1]      # shift first byte and add it with second
+        temp_c = raw * 0.25                 # convert to Celsius, will have to adjust per sensor's datasheet
+        return temp_c
 
     def close(self):
         self.spi.close()
