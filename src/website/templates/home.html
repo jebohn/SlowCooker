@@ -4,11 +4,11 @@
 
     <h1>Remote Cook Home</h1>
         <p>Use the form below to set cook time and temperature.</p>
-        <form action="/log" method="post">
-            Total cook time (minutes): <input type ="number" name="total_time" required><br><br>
-            Temperature (C): <input type ="number" name="temperature" required><br><br>
-            Segments:
-            <select name="segments">
+        <form action="/" method="post">
+            Total cook time (minutes): <input type ="number" name="cook_duration" required><br><br>
+            Temperature (C): <input type ="number" name="target_temp" required><br><br>
+            Intervals:
+            <select name="intervals">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

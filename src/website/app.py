@@ -7,6 +7,7 @@ from src.Logger import Logger
 
 
 app = Flask(__name__)
+app.secret_key = "raspiraspi"
 
 logger = Logger()
 status = {}
@@ -34,12 +35,12 @@ def home():
         slow_cooker = SlowCookerMain(target_temp, cook_duration, logger)
         slow_cooker.run()
 
-        return redirect(url_for("cook_session"))
+        return redirect(url_for("log"))
     return render_template("home.html")
     
 
-@app.route("/log", methods=["POST"])
-def start_cook():
+@app.route("/log", methods=["GET", "POST"])
+def log():
     cook_duration = session.get("cook_duration")
     target_temp = session.get("target_temp")
     intervals = session.get("intervals")
@@ -66,4 +67,4 @@ def log_stream(cook_duration):
 
 # Without this if statement, the program will automatically run the web server if this class is imported
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug="True", host="0.0.0.0", port=5000)
