@@ -3,3 +3,4 @@ venv/
 .DS_Store
 # Ignore all Python cache dirs everywhere
 __pycache__/
+cooker_log.db
