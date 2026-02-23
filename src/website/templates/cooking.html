@@ -45,8 +45,12 @@ p {
     <h3>Intervals: <span id="interval">{{intervals}}</span>, each interval: <span id="interval_duration">{{interval_duration}}</span> minutes</h3>
     <a href="/">Back</a>
     
-    <div id="timeremaining"><p id="time_remaining">time remaining: </p></div>
-    <div id="temp"><p id="current_temperature">current temperature: </p></div>
+    <div id="timeremaining"><span>time remaining: </span><span id="time_remaining"></span></div>
+    <div id="temp" ><span>current temperature: </span><span id="current_temperature"></span></div>
 </body>
+<script>
+  // guarantees an actual number/string that looks like an int
+  window.cookDuration = Number("{{ cook_duration|int }}");
+</script>
 <script type="module" src="{{url_for('static', filename='cooking.js')}}"></script>
 </html>

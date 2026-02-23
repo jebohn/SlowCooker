@@ -58,16 +58,16 @@ def log():
     
 @app.route("/log/stream/<int:cook_duration>")
 def log_stream(cook_duration):
+	print("/log/stream SSE route connected")
 	def event_stream():
 		last_timestamp = status.get("timestamp", cook_duration)
-		yield f"data: {json.dumps(status)}\n\n"
+		yield f"data: {json.dumps([status, time_of_start])}\n\n"
 		while True:
 			if status.get("timestamp", 0) > last_timestamp:
 				last_timestamp = status.get("timestamp")
-				result = [status, time_of_start]
-				yield f"data: {json.dumps(result)}\n\n"
+				yield f"data: {json.dumps([status, time_of_start])}\n\n"
 			time.sleep(0.5)
-	return Response(event_stream(), mimetype="text/event_stream")
+	return Response(event_stream(), mimetype="text/event-stream")
 
 
 # Without this if statement, the program will automatically run the web server if this class is imported
