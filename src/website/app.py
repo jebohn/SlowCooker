@@ -11,8 +11,12 @@ app.secret_key = "raspiraspi"
 
 logger = Logger()
 status = {}
+time_of_start = time.time()
 
 def log_listener():
+	# log_entry = logger.log_queue.get()
+	# status.update(log_entry)
+	# time_of_start = status.get("timestamp")
 	while True:
 		log_entry = logger.log_queue.get()
 		status.update(log_entry)
@@ -60,7 +64,8 @@ def log_stream(cook_duration):
 		while True:
 			if status.get("timestamp", 0) > last_timestamp:
 				last_timestamp = status.get("timestamp")
-				yield f"data: {json.dumps(status)}\n\n"
+				result = [status, time_of_start]
+				yield f"data: {json.dumps(result)}\n\n"
 			time.sleep(0.5)
 	return Response(event_stream(), mimetype="text/event_stream")
 
