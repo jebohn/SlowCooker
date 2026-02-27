@@ -14,7 +14,7 @@ class SlowCookerMain:
   def __init__(self, target_temp: int, cook_duration: int, logger: Logger):
     from src.website.app import app
     self.target_temp = target_temp
-    self.cook_duration = cook_duration        # must add operationg to multiply by 60 to get minutes
+    self.cook_duration = cook_duration        # !! must add operation to multiply by 60 to get minutes !!
     self.start_time = None
     self.thermometer = None
     self.heater = None
@@ -22,7 +22,7 @@ class SlowCookerMain:
     self.sensor = None
     self.logger = logger
     self.web_interface = app
-    #self.presets = RecipePresets()
+    #self.presets = RecipePresets()         # !! not yet implemented, must complete !!
 
 
   # Helper method
