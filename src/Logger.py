@@ -67,3 +67,6 @@ class Logger:
       "target_temp": target_temp
     })
 
+  # Push starting time to app
+  def start_timestamp(self, start_timestamp: float) -> None:
+    self.log_queue.put({ "start_timestamp": start_timestamp })

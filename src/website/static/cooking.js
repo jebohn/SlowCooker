@@ -1,8 +1,7 @@
-// blah blah blah
 const cookDuration = Number(window.cookDuration);
 
-const tempElement = document.getElementById("temp");
-const timeElement = document.getElementById("time");
+const tempElement = document.getElementById("current_temperature");
+const timeElement = document.getElementById("time_remaining");
 const pythonUpdate = new EventSource(`/log/stream/${cookDuration}`);
 
 
@@ -14,7 +13,11 @@ pythonUpdate.onmessage = (event) => {
 
 
     tempElement.textContent = status.curr_temp;
-    timeElement.textContent = Math.round(cookDuration - (status.timestamp - time_of_start));
+    const time_diff = status.timestamp - time_of_start;
+    console.log("status.timestamp = " + status.timestamp + 
+        ",\n time_of_start = " + time_of_start + 
+        ",\n time_diff = " + time_diff)
+    timeElement.textContent = Math.round(cookDuration - time_diff);
 }
 
 pythonUpdate.onerror = (e) => {

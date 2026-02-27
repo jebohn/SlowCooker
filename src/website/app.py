@@ -11,14 +11,17 @@ app.secret_key = "raspiraspi"
 
 logger = Logger()
 status = {}
-time_of_start = time.time()
+time_of_start = None
 
 def log_listener():
 	# log_entry = logger.log_queue.get()
 	# status.update(log_entry)
 	# time_of_start = status.get("timestamp")
 	while True:
+		global time_of_start
 		log_entry = logger.log_queue.get()
+		if "start_timestamp" in log_entry:
+			time_of_start = log_entry["start_timestamp"]
 		status.update(log_entry)
 
 Thread(target=log_listener, daemon=True).start()

@@ -15,6 +15,7 @@ class SlowCookerMain:
     from src.website.app import app
     self.target_temp = target_temp
     self.cook_duration = cook_duration        # !! must add operation to multiply by 60 to get minutes !!
+    self.start_timestamp = None
     self.start_time = None
     self.thermometer = None
     self.heater = None
@@ -27,11 +28,13 @@ class SlowCookerMain:
 
   # Helper method
   def start_session(self) -> None:
+    self.start_timestamp = time.time()
     self.start_time = time.perf_counter()
     self.controller.set_target_temp(self.target_temp)
     curr_temp = self.sensor.read_temp()
     self.controller.set_curr_temp(curr_temp)
     self.logger.start_session()
+    self.logger.start_timestamp(self.start_timestamp)
     self.logger.log(curr_temp, self.target_temp)
 
 
