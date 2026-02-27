@@ -4,7 +4,6 @@ import time
 #  !!    ADJUSTMENT BASED ON CROCK-POT TRIALS    !!
 
 
-
 class HeatController:
   # WINDOW constant might need adjustment
   WINDOW = 10.0
@@ -67,6 +66,8 @@ class HeatController:
     self.prev_time = now
 
     err = self.target_temp - self.curr_temp
+    print(f"self.target_temp = {self.target_temp}, self.curr_temp = {self.curr_temp}")
+    print(f"err (self.target_temp - self.curr_temp) = {err}")
     proportional = KP * err
 
     # Might need to max/min bound this value, will see with trials
@@ -96,6 +97,8 @@ class HeatController:
 
     if test is not None:
       test.set_temp(on_time)
+      print("Test is not None, set_temp() called.")
+      print(f"on_time = {on_time}")
 
     if on_time > 0:
       self.power_on()

@@ -51,6 +51,7 @@ class Logger:
     :param curr_temp: Current temperature in Celsius; provided by SlowCookerMain call
     :param target_temp: Target temperature in Celsius; provided by SlowCookerMain call
     """
+    print(f"curr_temp in Logger.py = {curr_temp}")
     timestamp = time.time()
     conn = sqlite3.connect(self.path)
     cursor = conn.cursor()

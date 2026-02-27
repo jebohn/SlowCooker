@@ -32,6 +32,7 @@ class SlowCookerMain:
     self.start_time = time.perf_counter()
     self.controller.set_target_temp(self.target_temp)
     curr_temp = self.sensor.read_temp()
+    print(f"SlowCookerMain.py initialize curr_temp in start_session() as {curr_temp}")
     self.controller.set_curr_temp(curr_temp)
     self.logger.start_session()
     self.logger.start_timestamp(self.start_timestamp)
@@ -54,7 +55,11 @@ class SlowCookerMain:
 
     while time.perf_counter() < end_time:
       self.controller.cycle(test)
+      if DEBUG:
+        print("SlowCookerMain.py: Calling self.sensor.read_temp")
       curr_temp = self.sensor.read_temp()
+      if DEBUG:
+        print(f"SlowCookerMain.py: curr_temp = {curr_temp}")
       self.controller.set_curr_temp(curr_temp)
       print(curr_temp, " : ", self.target_temp)
       self.logger.log(curr_temp, self.target_temp)
