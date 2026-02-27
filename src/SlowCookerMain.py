@@ -53,6 +53,7 @@ class SlowCookerMain:
       self.controller.cycle(test)
       curr_temp = self.sensor.read_temp()
       self.controller.set_curr_temp(curr_temp)
+      print(curr_temp, " : ", self.target_temp)
       self.logger.log(curr_temp, self.target_temp)
     
     # if user wants keep warm:

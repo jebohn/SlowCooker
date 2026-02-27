@@ -11,8 +11,12 @@ app.secret_key = "raspiraspi"
 
 logger = Logger()
 status = {}
+time_of_start = time.time()
 
 def log_listener():
+	# log_entry = logger.log_queue.get()
+	# status.update(log_entry)
+	# time_of_start = status.get("timestamp")
 	while True:
 		log_entry = logger.log_queue.get()
 		status.update(log_entry)
@@ -48,21 +52,22 @@ def log():
     # interval_duration = cook_duration / intervals
     # interval_duration_str = f"{interval_duration:.2f}"
 
-    return render_template("cooking.html", cook_duration = cook_duration, target_temp = target_temp, 
-                           intervals = intervals) # interval_duration = interval_duration_str)
+    return render_template("cooking.html", cook_duration = cook_duration, target_temp = target_temp)
+						#    intervals = intervals, interval_duration = interval_duration_str)
     
     
 @app.route("/log/stream/<int:cook_duration>")
 def log_stream(cook_duration):
+	print("/log/stream SSE route connected")
 	def event_stream():
 		last_timestamp = status.get("timestamp", cook_duration)
-		yield f"data: {json.dumps(status)}\n\n"
+		yield f"data: {json.dumps([status, time_of_start])}\n\n"
 		while True:
 			if status.get("timestamp", 0) > last_timestamp:
 				last_timestamp = status.get("timestamp")
-				yield f"data: {json.dumps(status)}\n\n"
+				yield f"data: {json.dumps([status, time_of_start])}\n\n"
 			time.sleep(0.5)
-	return Response(event_stream(), mimetype="text/event_stream")
+	return Response(event_stream(), mimetype="text/event-stream")
 
 
 # Without this if statement, the program will automatically run the web server if this class is imported

@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+
+body {
+  background-color: lightblue;
+  /*background: linear-gradient(to top, black, red);*/
+}
+
+h1 {
+  color: black;
+  font-family: verdana;
+  font-size: 300%;
+}
+
+p {
+  color: black;
+  font-family: verdana;
+  font-size: 100%;
+  text-align: center
+}
+#temp {
+  color: black;
+  background: linear-gradient(to bottom, red, yellow);
+  font-family: verdana;
+  font-size: 120%;
+  width: 300px;
+  height: 35px;
+}
+#timeremaining {
+  color: black;
+  background: linear-gradient(to bottom, blue, purple);
+  font-family: verdana;
+  font-size: 120%;
+  width: 300px;
+  height: 35px;
+}
+</style>
+</head>
 <body>
 <h1>Cooking Started!</h1>
-    <div>Total time: <span id="time">{{cook_duration}}</span> minutes</div>
-    <div>Temperature: <span id="target_temp">{{target_temp}}</span> C</div>
-    <div>Intervals: <span id="interval">{{intervals}}</span>, each interval: <span id="interval_duration">{{interval_duration}}</span> minutes</div>
+    <h3 id="totaltime">Total time: <span id="total_time">{{cook_duration}}</span> minutes</h3>
+    <h3>Target Temperature: <span id="target_temp">{{target_temp}}</span> C</h3>
+    <h3>Intervals: <span id="interval">{{intervals}}</span>, each interval: <span id="interval_duration">{{interval_duration}}</span> minutes</h3>
     <a href="/">Back</a>
+    
+    <div id="timeremaining"><span>time remaining: </span><span id="time_remaining"></span></div>
+    <div id="temp" ><span>current temperature: </span><span id="current_temperature"></span></div>
 </body>
+<script>
+  // guarantees an actual number/string that looks like an int
+  window.cookDuration = Number("{{ cook_duration|int }}");
+</script>
 <script type="module" src="{{url_for('static', filename='cooking.js')}}"></script>
 </html>
