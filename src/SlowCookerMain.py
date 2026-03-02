@@ -42,17 +42,16 @@ class SlowCookerMain:
   # Controller; runs program in loop for given cook time
   def run(self) -> None:
     print("SlowCookerMain.py: calling MAX6675Amplifier()")
-    self.thermometer = MAX6675Amplifier()
+    if DEBUG is True:
+      test = mock_pi.SpiDev()
+    else:
+      test = None
+    self.thermometer = MAX6675Amplifier(test)
     self.heater = SSR()
     self.controller = HeatController(self.heater, self.target_temp)
     self.sensor = TemperatureSensor(self.thermometer)
     self.start_session()
     end_time = self.start_time + self.cook_duration
-
-    if DEBUG is True:
-      test = mock_pi.SpiDev()
-    else:
-      test = None
 
     while time.perf_counter() < end_time:
       self.controller.cycle(test)
