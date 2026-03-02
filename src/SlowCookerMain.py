@@ -41,6 +41,7 @@ class SlowCookerMain:
 
   # Controller; runs program in loop for given cook time
   def run(self) -> None:
+    print("SlowCookerMain.py: calling MAX6675Amplifier()")
     self.thermometer = MAX6675Amplifier()
     self.heater = SSR()
     self.controller = HeatController(self.heater, self.target_temp)

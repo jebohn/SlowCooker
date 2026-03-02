@@ -38,7 +38,7 @@ def home():
         session["target_temp"] = target_temp
         session["intervals"] = intervals
         
-
+        print("app.py: Creating new instance of SlowCookerMain", flush=True)
         slow_cooker = SlowCookerMain(target_temp, cook_duration, logger)
         Thread(target=slow_cooker.run, daemon=True).start()
 

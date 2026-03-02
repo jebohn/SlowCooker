@@ -1,5 +1,6 @@
 class SpiDev:
   def __init__(self):
+    print(f"mock_pi.py: init called, self.spi id = {id(self)}")
     self._temp_c = 25.0       # starting temp for test
   
   def open(self, bus, device):
@@ -14,6 +15,7 @@ class SpiDev:
 
   def set_temp(self, on_time: int):
     print(f"mock_pi.py: set_temp() called, old self._temp_c = {self._temp_c}")
+    print(f"mock_pi.py: self.spi id = {id(self)}")
     # print(f"on_time = {on_time}, self._temp_c + on_time = {self._temp_c + on_time}")
     self._temp_c += on_time
     print(f"mock_pi.py: new self._temp_c = {self._temp_c}")

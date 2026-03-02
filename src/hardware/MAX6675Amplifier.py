@@ -3,12 +3,13 @@ DEBUG = True
 try:
     import spidev # Requires SPI to be enabled in RPi
 except ImportError:
-    from tests import mock_pi as spidev
+    from tests.mock_pi import SpiDev
 
 # Note, the numbers used for bus, device, speed, and mode are yet to be determined.
 class MAX6675Amplifier:
     def __init__(self, bus=0, device=0):
-        self.spi = spidev.SpiDev()
+        self.spi = SpiDev()
+        print(f"MAX6675Amplifier.py: SpiDev() called in init, self.spi id = {id(self.spi)}")
         self.spi.open(bus, device)
     
     def open(self, bus, device):
@@ -20,6 +21,7 @@ class MAX6675Amplifier:
     def get_temp(self):
         if DEBUG:
             print("MAX6675Amplifier.py: get_temp() called, calling self.spi.xfer2()")
+            print(f"MAX6675Amplifier.py: self.spi id = {id(self.spi)}")
         data = self.spi.xfer2() # spi device returns two bytes
         raw = (data[0] << 8) | data[1]      # shift first byte and add it with second
         temp_c = raw * 0.25                 # !! convert to Celsius, will have to adjust per sensor's datasheet !!
