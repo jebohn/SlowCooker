@@ -7,8 +7,11 @@ except ImportError:
 
 # Note, the numbers used for bus, device, speed, and mode are yet to be determined.
 class MAX6675Amplifier:
-    def __init__(self, bus=0, device=0):
-        self.spi = SpiDev()
+    def __init__(self, spi, bus=0, device=0):
+        if not spi is None:
+            self.spi = spi
+        else:
+            self.spi = SpiDev()     # i don't think this is right for real spidev idk
         print(f"MAX6675Amplifier.py: SpiDev() called in init, self.spi id = {id(self.spi)}")
         self.spi.open(bus, device)
     
